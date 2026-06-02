@@ -1,65 +1,135 @@
+// app/page.tsx
+"use client";
+import React, { useState } from "react";
 import Image from "next/image";
+import { motion } from "framer-motion";
+
+import HowItWorks from "./components/HowItWorks";
+import ContactModal from "./components/ContactModal";
 
 export default function Home() {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  // Service list with localized titles and descriptions for the Polish market
+  const services = [
+    {
+      title: "Elektronika Mobilna",
+      description:
+        "Profesjonalna naprawa smartfonów i tabletów: wymiana ekranów, gniazd ładowania oraz diagnostyka zasilania. Naprawa uszkodzonych portów, rozwiązywanie problemów z baterią oraz pełna diagnostyka pod kątem elektroniki i hardware'u. Naprawa uszkodzonych komponentów, takich jak płyty główne, ekrany, baterie i inne elementy elektroniczne.",
+    },
+    {
+      title: "Komputery i Laptopy",
+      description:
+        "Serwis, diagnostyka i naprawa komputerów i laptopów. Oprogramowanie, wymiana podzespołów, naprawa zasilania i wiele więcej. Diagnozowanie i naprawa problemów z zasilaniem, w tym wymiana gniazd zasilania, naprawa uszkodzonych portów i rozwiązywanie problemów z baterią. Pełna diagnostyka pod kątem elektroniki oraz hardware'u, w tym testowanie i naprawa uszkodzonych komponentów, takich jak płyty główne, karty graficzne, pamięć RAM i inne elementy elektroniczne.",
+    },
+    {
+      title: "Elektronika Specjalistyczna",
+      description:
+        "Naprawa elektronarzędzi, małej elektroniki oraz różnego sprzętu biurowego i nie tylko. Diagnozowanie i naprawa problemów z zasilaniem, w tym wymiana gniazd zasilania, naprawa uszkodzonych portów i rozwiązywanie problemów z baterią. Pełna diagnostyka pod kątem elektroniki. ",
+    },
+  ];
+  // Animation variants for smooth reveal
+  const fadeInUp = {
+    hidden: { opacity: 0, y: 30 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
+  };
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
+    <main className="min-h-screen bg-[#1a1a1a] text-white font-sans">
+      {/* Hero Section */}
+      <section className="relative py-20 px-6 border-b-4 border-[#ffb800]">
+        <motion.div
+          initial="hidden"
+          animate="visible"
+          variants={fadeInUp}
+          className="max-w-5xl mx-auto grid md:grid-cols-2 gap-12 items-center"
+        >
+          <div>
+            <h1 className="text-5xl font-bold mb-4">
+              TECHNIK-<span className="text-[#ffb800]">SERWISU</span>
+            </h1>
+            <p className="text-xl text-gray-300 mb-6">
+              Profesjonalny Serwis mobilny – działamy na terenie Pyrzyc i okolic (do 50km) z możliwością odbioru sprzętu
+              od klienta lub naprawy wysyłkowej.
+            </p>
+            <button
+              onClick={() => setIsModalOpen(true)}
+              className="bg-[#ffb800] text-black px-8 py-3 font-bold hover:bg-white transition-colors"
             >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
+              Zgłoś naprawę
+            </button>
+          </div>
+          <div className="relative h-64 w-full border-l-8 border-[#ffb800] overflow-hidden">
+            <Image src="/brand-page.png" alt="PMDEV Serwis" fill style={{ objectFit: "cover" }} priority />
+          </div>
+        </motion.div>
+      </section>
+
+      {/* Services Section with scroll-triggered animation */}
+      <section className="py-24 px-6 max-w-6xl mx-auto" id="uslugi">
+        <motion.h2
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          variants={fadeInUp}
+          className="text-4xl font-extrabold mb-16 border-l-4 border-[#ffb800] pl-6 tracking-tight"
+        >
+          Zakres naszych usług
+        </motion.h2>
+
+        <div className="grid md:grid-cols-3 gap-8">
+          {services.map((service, index) => (
+            <motion.div
+              key={service.title}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              variants={{
+                hidden: { opacity: 0, y: 30 },
+                visible: { opacity: 1, y: 0, transition: { delay: index * 0.15, duration: 0.5 } },
+              }}
+              className="group bg-[#202020] p-8 border border-[#333] hover:border-[#ffb800] rounded-sm transition-all duration-300 hover:shadow-[0_0_20px_rgba(255,184,0,0.1)] flex flex-col h-full"
             >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+              <div className="w-12 h-1 bg-[#ffb800] mb-6 group-hover:w-20 transition-all duration-300" />
+              <h3 className="text-2xl font-bold mb-4 text-white group-hover:text-[#ffb800] transition-colors">
+                {service.title}
+              </h3>
+              <p className="text-gray-400 text-base leading-relaxed flex-grow">{service.description}</p>
+            </motion.div>
+          ))}
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
+      </section>
+
+      <HowItWorks />
+
+      {/* About Section - Personal brand building */}
+      <section id="o-mnie" className="py-20 px-6 bg-[#202020]">
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          variants={fadeInUp}
+          className="max-w-4xl mx-auto"
+        >
+          <h2 className="text-3xl font-bold mb-8 border-l-4 border-[#ffb800] pl-4">O mnie</h2>
+          <div className="text-gray-300 text-lg leading-relaxed space-y-4">
+            <p>
+              Cześć! Jestem Przemysław i od lat moją największą pasją jest technologia. Wszystko zaczęło się od
+              komputerów i programowania, które nauczyły mnie logicznego myślenia i rozwiązywania złożonych problemów.
+            </p>
+            <p>
+              Jednak to elektronika &quot;od środka&quot; stała się moją prawdziwą specjalizacją. Od kilku lat skupiam
+              się na naprawie małej elektroniki, micro-solderingu oraz diagnostyce płyt głównych. Nie boję się wyzwań –
+              od naprawy nowoczesnych smartfonów, przez laptopy, aż po specjalistyczny sprzęt audio czy
+              elektronarzędzia.
+            </p>
+            <p className="text-[#ffb800] font-semibold italic">
+              &quot;Dla mnie każda naprawa to zagadka, która czeka na rozwiązanie – precyzja i jakość to moje
+              fundamenty.&quot;
+            </p>
+          </div>
+        </motion.div>
+      </section>
+      <ContactModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
+    </main>
   );
 }

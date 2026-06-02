@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://technik-serwisu.pl/sitemap.xml
