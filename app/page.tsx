@@ -3,31 +3,39 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
+import { ShieldCheck, Truck } from "lucide-react";
 
+import ShippingModal from "./components/ShippingModal";
 import HowItWorks from "./components/HowItWorks";
 import ContactModal from "./components/ContactModal";
 
 export default function Home() {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  // Service list with localized titles and descriptions for the Polish market
+  const [isShippingOpen, setIsShippingOpen] = useState(false);
+
   const services = [
+    {
+      title: "Smartfony i Tablety",
+      description:
+        "Profesjonalny serwis iPhone oraz urządzeń z systemem Android. Wymiana wyświetlaczy, szyb, naprawa po zalaniu oraz zaawansowane lutowanie układów na płytach głównych. W cenie zawsze darmowa diagnostyka wstępna.",
+    },
     {
       title: "Elektronika Mobilna",
       description:
-        "Profesjonalna naprawa smartfonów i tabletów: wymiana ekranów, gniazd ładowania oraz diagnostyka zasilania. Naprawa uszkodzonych portów, rozwiązywanie problemów z baterią oraz pełna diagnostyka pod kątem elektroniki i hardware'u. Naprawa uszkodzonych komponentów, takich jak płyty główne, ekrany, baterie i inne elementy elektroniczne.",
+        "Naprawa układów zasilania, gniazd ładowania oraz diagnostyka zasilania w szerokim spektrum urządzeń mobilnych. Pełna obsługa elektroniki użytkowej, gdzie precyzja i jakość są naszym fundamentem.",
     },
     {
       title: "Komputery i Laptopy",
       description:
-        "Serwis, diagnostyka i naprawa komputerów i laptopów. Oprogramowanie, wymiana podzespołów, naprawa zasilania i wiele więcej. Diagnozowanie i naprawa problemów z zasilaniem, w tym wymiana gniazd zasilania, naprawa uszkodzonych portów i rozwiązywanie problemów z baterią. Pełna diagnostyka pod kątem elektroniki oraz hardware'u, w tym testowanie i naprawa uszkodzonych komponentów, takich jak płyty główne, karty graficzne, pamięć RAM i inne elementy elektroniczne.",
+        "Kompleksowa diagnostyka i naprawa sprzętu komputerowego. Wymiana podzespołów, naprawa układów zasilania, płyt głównych oraz kart graficznych. Darmowa wstępna diagnostyka dla każdego sprzętu.",
     },
     {
       title: "Elektronika Specjalistyczna",
       description:
-        "Naprawa elektronarzędzi, małej elektroniki oraz różnego sprzętu biurowego i nie tylko. Diagnozowanie i naprawa problemów z zasilaniem, w tym wymiana gniazd zasilania, naprawa uszkodzonych portów i rozwiązywanie problemów z baterią. Pełna diagnostyka pod kątem elektroniki. ",
+        "Naprawa elektronarzędzi oraz sprzętu biurowego. Każde zlecenie zaczynamy od pełnej, darmowej diagnostyki pod kątem elektronicznym, aby zapewnić najwyższą precyzję i skuteczność naprawy.",
     },
   ];
-  // Animation variants for smooth reveal
+
   const fadeInUp = {
     hidden: { opacity: 0, y: 30 },
     visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
@@ -35,21 +43,20 @@ export default function Home() {
 
   return (
     <main className="min-h-screen bg-[#1a1a1a] text-white font-sans">
-      {/* Hero Section */}
       <section className="relative py-20 px-6 border-b-4 border-[#ffb800]">
         <motion.div
           initial="hidden"
           animate="visible"
           variants={fadeInUp}
-          className="max-w-5xl mx-auto grid md:grid-cols-2 gap-12 items-center"
+          className="max-w-6xl mx-auto grid md:grid-cols-2 gap-12 items-center"
         >
           <div>
             <h1 className="text-5xl font-bold mb-4">
               TECHNIK-<span className="text-[#ffb800]">SERWISU</span>
             </h1>
             <p className="text-xl text-gray-300 mb-6">
-              Profesjonalny Serwis mobilny – działamy na terenie Pyrzyc i okolic (do 50km) z możliwością odbioru sprzętu
-              od klienta lub naprawy wysyłkowej.
+              Profesjonalny Serwis mobilny – działamy na terenie Pyrzyc i okolic (do 50km). Oferujemy darmową
+              diagnostykę wstępną oraz bezpieczne naprawy wysyłkowe.
             </p>
             <button
               onClick={() => setIsModalOpen(true)}
@@ -64,8 +71,7 @@ export default function Home() {
         </motion.div>
       </section>
 
-      {/* Services Section with scroll-triggered animation */}
-      <section className="py-24 px-6 max-w-6xl mx-auto" id="uslugi">
+      <section className="py-24 px-6 max-w-7xl mx-auto" id="uslugi">
         <motion.h2
           initial="hidden"
           whileInView="visible"
@@ -76,7 +82,8 @@ export default function Home() {
           Zakres naszych usług
         </motion.h2>
 
-        <div className="grid md:grid-cols-3 gap-8">
+        {/* Zmiana tutaj: grid-cols-1 md:grid-cols-2 lg:grid-cols-4 zapewnia elastyczność */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {services.map((service, index) => (
             <motion.div
               key={service.title}
@@ -85,15 +92,15 @@ export default function Home() {
               viewport={{ once: true }}
               variants={{
                 hidden: { opacity: 0, y: 30 },
-                visible: { opacity: 1, y: 0, transition: { delay: index * 0.15, duration: 0.5 } },
+                visible: { opacity: 1, y: 0, transition: { delay: index * 0.1, duration: 0.5 } },
               }}
-              className="group bg-[#202020] p-8 border border-[#333] hover:border-[#ffb800] rounded-sm transition-all duration-300 hover:shadow-[0_0_20px_rgba(255,184,0,0.1)] flex flex-col h-full"
+              className="group bg-[#202020] p-8 border border-[#333] hover:border-[#ffb800] rounded-sm transition-all duration-300 hover:shadow-[0_0_20px_rgba(255,184,0,0.1)] flex flex-col min-h-[300px]"
             >
               <div className="w-12 h-1 bg-[#ffb800] mb-6 group-hover:w-20 transition-all duration-300" />
-              <h3 className="text-2xl font-bold mb-4 text-white group-hover:text-[#ffb800] transition-colors">
+              <h3 className="text-xl font-bold mb-4 text-white group-hover:text-[#ffb800] transition-colors">
                 {service.title}
               </h3>
-              <p className="text-gray-400 text-base leading-relaxed flex-grow">{service.description}</p>
+              <p className="text-gray-400 text-normal leading-relaxed flex-grow">{service.description}</p>
             </motion.div>
           ))}
         </div>
@@ -101,34 +108,77 @@ export default function Home() {
 
       <HowItWorks />
 
-      {/* About Section - Personal brand building */}
+      <section id="wysylka" className="py-16 px-6 max-w-4xl mx-auto bg-[#1a1a1a]">
+        <h3 className="text-2xl font-bold mb-8 text-[#ffb800] border-l-4 border-[#ffb800] pl-4">
+          Naprawa wysyłkowa krok po kroku
+        </h3>
+        <div className="grid md:grid-cols-2 gap-8">
+          <div className="space-y-4">
+            <p className="text-gray-400">
+              Nie jesteś z okolic Pyrzyc? Oferujemy w pełni bezpieczną naprawę wysyłkową. Każde urządzenie traktujemy z
+              najwyższą starannością.
+            </p>
+            <div className="flex items-center gap-3 text-sm text-green-500 font-semibold">
+              <ShieldCheck size={20} /> <span>Bezpieczna przesyłka</span>
+            </div>
+
+            {/* Przycisk wyciągnięty z flexa, żeby nie psuł układu i był czytelny */}
+            <button
+              onClick={() => setIsShippingOpen(true)}
+              className="w-full md:w-auto bg-[#333] hover:bg-[#ffb800] hover:text-black transition-all px-6 py-3 font-bold border border-[#ffb800] text-[#ffb800]"
+            >
+              Zobacz instrukcję pakowania
+            </button>
+          </div>
+
+          <div className="bg-[#262626] p-6 rounded border border-[#333]">
+            <h4 className="font-bold mb-4 flex items-center gap-2">
+              <Truck className="text-[#ffb800]" /> Dane do wysyłki
+            </h4>
+            <ul className="text-sm text-gray-300 space-y-2">
+              <li>
+                <strong>Paczkomat:</strong> ZOV01M
+              </li>
+              <li>
+                <strong>Odbiorca:</strong> &quot;Serwis Technik-Serwisu&quot;
+              </li>
+              <li>
+                <strong>Tel:</strong> +48 509 820 956
+              </li>
+              <li className="mt-4 text-xs italic text-gray-500">
+                *Proszę dołącz kartkę z opisem usterki i numerem telefonu wewnątrz paczki.
+              </li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
       <section id="o-mnie" className="py-20 px-6 bg-[#202020]">
         <motion.div
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
           variants={fadeInUp}
-          className="max-w-4xl mx-auto"
+          className="max-w-6xl mx-auto"
         >
           <h2 className="text-3xl font-bold mb-8 border-l-4 border-[#ffb800] pl-4">O mnie</h2>
           <div className="text-gray-300 text-lg leading-relaxed space-y-4">
             <p>
               Cześć! Jestem Przemysław i od lat moją największą pasją jest technologia. Wszystko zaczęło się od
-              komputerów i programowania, które nauczyły mnie logicznego myślenia i rozwiązywania złożonych problemów.
+              komputerów i programowania, które nauczyły mnie logicznego myślenia.
             </p>
             <p>
-              Jednak to elektronika &quot;od środka&quot; stała się moją prawdziwą specjalizacją. Od kilku lat skupiam
-              się na naprawie małej elektroniki, micro-solderingu oraz diagnostyce płyt głównych. Nie boję się wyzwań –
-              od naprawy nowoczesnych smartfonów, przez laptopy, aż po specjalistyczny sprzęt audio czy
-              elektronarzędzia.
+              Jednak to elektronika &quot;od środka&quot; stała się moją prawdziwą specjalizacją. Od naprawy smartfonów,
+              przez laptopy, aż po specjalistyczny sprzęt audio – precyzja i jakość to moje fundamenty.
             </p>
             <p className="text-[#ffb800] font-semibold italic">
-              &quot;Dla mnie każda naprawa to zagadka, która czeka na rozwiązanie – precyzja i jakość to moje
-              fundamenty.&quot;
+              &quot;Dla mnie każda naprawa to zagadka, która czeka na rozwiązanie.&quot;
             </p>
           </div>
         </motion.div>
       </section>
+
+      <ShippingModal isOpen={isShippingOpen} onClose={() => setIsShippingOpen(false)} />
       <ContactModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
     </main>
   );
