@@ -1,6 +1,6 @@
 // app/page.tsx
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { ShieldCheck, Truck } from "lucide-react";
@@ -8,10 +8,45 @@ import { ShieldCheck, Truck } from "lucide-react";
 import ShippingModal from "./components/ShippingModal";
 import HowItWorks from "./components/HowItWorks";
 import ContactModal from "./components/ContactModal";
+import ReviewGate from "./components/ReviewGate";
+
+// Declare global window interface for Trustindex widget safety
+declare global {
+  interface Window {
+    Trustindex: {
+      reload: () => void;
+    };
+  }
+}
 
 export default function Home() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isShippingOpen, setIsShippingOpen] = useState(false);
+  const [isReviewOpen, setIsReviewOpen] = useState(false);
+
+  useEffect(() => {
+    // Locate the container where the widget should be rendered
+    const container = document.getElementById("trustindex-container");
+
+    if (container) {
+      // Create the script element
+      const script = document.createElement("script");
+      script.src = "https://cdn.trustindex.io/loader.js?ddc2584740f70780f636c1c050b";
+      script.async = true;
+      script.defer = true;
+
+      // Append the script directly to the container to ensure binding
+      container.appendChild(script);
+    }
+
+    // Cleanup function to remove the script when component unmounts
+    return () => {
+      const scriptElement = document.querySelector('script[src*="trustindex.io"]');
+      if (scriptElement) {
+        scriptElement.remove();
+      }
+    };
+  }, []);
 
   const services = [
     {
@@ -43,6 +78,7 @@ export default function Home() {
 
   return (
     <main className="min-h-screen bg-[#1a1a1a] text-white font-sans">
+      {/* Hero Section */}
       <section className="relative py-20 px-6 border-b-4 border-[#ffb800]">
         <motion.div
           initial="hidden"
@@ -71,6 +107,7 @@ export default function Home() {
         </motion.div>
       </section>
 
+      {/* Services Section */}
       <section className="py-24 px-6 max-w-7xl mx-auto" id="uslugi">
         <motion.h2
           initial="hidden"
@@ -81,8 +118,6 @@ export default function Home() {
         >
           Zakres naszych usług
         </motion.h2>
-
-        {/* Zmiana tutaj: grid-cols-1 md:grid-cols-2 lg:grid-cols-4 zapewnia elastyczność */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {services.map((service, index) => (
             <motion.div
@@ -108,6 +143,7 @@ export default function Home() {
 
       <HowItWorks />
 
+      {/* Shipping Section */}
       <section id="wysylka" className="py-16 px-6 max-w-4xl mx-auto bg-[#1a1a1a]">
         <h3 className="text-2xl font-bold mb-8 text-[#ffb800] border-l-4 border-[#ffb800] pl-4">
           Naprawa wysyłkowa krok po kroku
@@ -121,8 +157,6 @@ export default function Home() {
             <div className="flex items-center gap-3 text-sm text-green-500 font-semibold">
               <ShieldCheck size={20} /> <span>Bezpieczna przesyłka</span>
             </div>
-
-            {/* Przycisk wyciągnięty z flexa, żeby nie psuł układu i był czytelny */}
             <button
               onClick={() => setIsShippingOpen(true)}
               className="w-full md:w-auto bg-[#333] hover:bg-[#ffb800] hover:text-black transition-all px-6 py-3 font-bold border border-[#ffb800] text-[#ffb800]"
@@ -130,7 +164,6 @@ export default function Home() {
               Zobacz instrukcję pakowania
             </button>
           </div>
-
           <div className="bg-[#262626] p-6 rounded border border-[#333]">
             <h4 className="font-bold mb-4 flex items-center gap-2">
               <Truck className="text-[#ffb800]" /> Dane do wysyłki
@@ -145,10 +178,27 @@ export default function Home() {
               <li>
                 <strong>Tel:</strong> +48 509 820 956
               </li>
-              <li className="mt-4 text-xs italic text-gray-500">
-                *Proszę dołącz kartkę z opisem usterki i numerem telefonu wewnątrz paczki.
-              </li>
             </ul>
+          </div>
+        </div>
+      </section>
+
+      {/* Review Section */}
+      <section className="py-20 px-6 bg-[#1a1a1a]">
+        <div className="max-w-4xl mx-auto">
+          <h2 className="text-3xl font-bold mb-12 text-center">Opinie naszych klientów</h2>
+          <div
+            id="trustindex-container"
+            data-trustindex-widget-id="ddc2584740f70780f636c1c050b"
+            className="min-h-[200px] mb-12"
+          ></div>
+          <div className="text-center">
+            <button
+              onClick={() => setIsReviewOpen(true)}
+              className="text-[#ffb800] border border-[#ffb800] px-8 py-3 font-bold hover:bg-[#ffb800] hover:text-black transition-all"
+            >
+              Oceń nasz serwis
+            </button>
           </div>
         </div>
       </section>
@@ -178,6 +228,8 @@ export default function Home() {
         </motion.div>
       </section>
 
+      {/* Modals */}
+      <ReviewGate isOpen={isReviewOpen} onClose={() => setIsReviewOpen(false)} />
       <ShippingModal isOpen={isShippingOpen} onClose={() => setIsShippingOpen(false)} />
       <ContactModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
     </main>
