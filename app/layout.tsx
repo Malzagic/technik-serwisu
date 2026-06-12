@@ -8,16 +8,15 @@ const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.technik-serwisu.pl"),
-  title: "PMDEV - Profesjonalny Serwis Elektroniki | Pyrzyce i okolice",
+  title: "Technik-Serwisu - Profesjonalny Serwis Elektroniki | Pyrzyce i okolice",
   description:
-    "PMDEV: Serwis telefonów, laptopów, wzmacniaczy i elektronarzędzi w Pyrzycach. Specjalistyczna diagnostyka płyt głównych, naprawy wysyłkowe i micro-soldering.",
+    "Technik-Serwisu: Serwis telefonów, laptopów, wzmacniaczy i elektronarzędzi w Pyrzycach. Specjalistyczna diagnostyka płyt głównych, naprawy wysyłkowe i micro-soldering.",
   authors: [{ name: "Przemysław Młoczkowski" }],
-  // Dodajemy Open Graph dla social mediów (ważne dla SEO)
   openGraph: {
-    title: "PMDEV - Profesjonalny Serwis Elektroniki",
+    title: "Technik-Serwisu - Profesjonalny Serwis Elektroniki",
     description: "Serwis mobilny elektroniki w Pyrzycach. Naprawa wysyłkowa, darmowa diagnostyka.",
-    url: "https://technik-serwisu.pl",
-    siteName: "PMDEV Technik Serwisu",
+    url: "https://www.technik-serwisu.pl",
+    siteName: "Technik Serwisu",
     locale: "pl_PL",
     type: "website",
   },
