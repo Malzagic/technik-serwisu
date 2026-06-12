@@ -26,8 +26,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "LocalBusiness",
-    name: "PMDEV Technik Serwisu",
-    image: "https://technik-serwisu.pl/og-image.png", // Pamiętaj o dodaniu obrazka do folderu public!
+    name: "Technik Serwisu",
+    image: "https://www.technik-serwisu.pl/og-image.png", // Pamiętaj o dodaniu obrazka do folderu public!
     telephone: "+48509820956",
     address: {
       "@type": "PostalAddress",
