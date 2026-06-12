@@ -7,6 +7,7 @@ import Navbar from "./components/Navbar";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://www.technik-serwisu.pl"),
   title: "PMDEV - Profesjonalny Serwis Elektroniki | Pyrzyce i okolice",
   description:
     "PMDEV: Serwis telefonów, laptopów, wzmacniaczy i elektronarzędzi w Pyrzycach. Specjalistyczna diagnostyka płyt głównych, naprawy wysyłkowe i micro-soldering.",
