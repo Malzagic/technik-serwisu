@@ -54,7 +54,7 @@ export default function ShippingModal({ isOpen, onClose }: { isOpen: boolean; on
                   3
                 </div>
                 <p>
-                  <strong>Nadanie:</strong> Wybierz Paczkomat: <strong>ZOV01M</strong>. Jako odbiorcę wpisz &quot;Serwis
+                  <strong>Nadanie:</strong> Wybierz Paczkomat: <strong>STS13M</strong>. Jako odbiorcę wpisz &quot;Serwis
                   Technik-Serwisu&quot;, tel: +48 509 820 956.
                 </p>
               </div>
