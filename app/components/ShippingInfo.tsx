@@ -24,7 +24,7 @@ export default function ShippingInfo() {
           </h4>
           <ul className="text-sm text-gray-300 space-y-2">
             <li>
-              <strong>Paczkomat:</strong> ZOV01M
+              <strong>Paczkomat:</strong> STS13M
             </li>
             <li>
               <strong>Odbiorca:</strong> Serwis Technik-Serwisu
