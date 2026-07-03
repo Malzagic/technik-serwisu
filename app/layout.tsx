@@ -10,7 +10,10 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://www.technik-serwisu.pl"),
   title: "Technik-Serwisu - Profesjonalny Serwis Elektroniki | Pyrzyce i okolice",
   description:
-    "Technik-Serwisu: Serwis telefonów, laptopów, wzmacniaczy i elektronarzędzi w Pyrzycach. Specjalistyczna diagnostyka płyt głównych, naprawy wysyłkowe i micro-soldering.",
+    "Technik-Serwisu: Serwis telefonów, laptopów, elektroniki i elektronarzędzi w Pyrzycach. Specjalistyczna diagnostyka płyt głównych, naprawy wysyłkowe i micro-soldering.",
+  alternates: {
+    canonical: "/",
+  },
   authors: [{ name: "Przemysław Młoczkowski" }],
   openGraph: {
     title: "Technik-Serwisu - Profesjonalny Serwis Elektroniki",
