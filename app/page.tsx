@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { ShieldCheck, Truck } from "lucide-react";
+import { ShieldCheck, Truck, Star } from "lucide-react";
 
 import ShippingModal from "./components/ShippingModal";
 import HowItWorks from "./components/HowItWorks";
@@ -68,6 +68,14 @@ export default function Home() {
       title: "Elektronika Specjalistyczna",
       description:
         "Naprawa elektronarzędzi oraz sprzętu biurowego. Każde zlecenie zaczynamy od pełnej, darmowej diagnostyki pod kątem elektronicznym, aby zapewnić najwyższą precyzję i skuteczność naprawy.",
+    },
+  ];
+
+  const reviews = [
+    {
+      name: "covall1",
+      opinion: "Polecam, naprawa sprzęty DeWalt na najwyższym poziomie 😁💪…",
+      rating: 5,
     },
   ];
 
@@ -183,15 +191,24 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Review Section */}
       <section className="py-20 px-6 bg-[#1a1a1a]">
         <div className="max-w-4xl mx-auto">
-          <h2 className="text-3xl font-bold mb-12 text-center">Opinie naszych klientów</h2>
-          <div
-            id="trustindex-container"
-            data-trustindex-widget-id="ddc2584740f70780f636c1c050b"
-            className="min-h-[200px] mb-12"
-          ></div>
+          <h2 className="text-3xl font-bold mb-12 text-center">Opinie o PMDEV</h2>
+
+          <div className="grid md:grid-cols-2 gap-8 mb-12">
+            {reviews.map((review, index) => (
+              <div key={index} className="bg-[#202020] p-6 border border-[#333]">
+                <div className="flex text-[#ffb800] mb-4">
+                  {[...Array(review.rating)].map((_, i) => (
+                    <Star key={i} size={16} fill="currentColor" />
+                  ))}
+                </div>
+                <p className="text-gray-300 mb-4 italic">&quot;{review.opinion}&quot;</p>
+                <p className="font-bold text-white">- {review.name}</p>
+              </div>
+            ))}
+          </div>
+
           <div className="text-center">
             <button
               onClick={() => setIsReviewOpen(true)}

@@ -38,7 +38,7 @@ export default function Footer() {
             </li>
             <li>
               <a
-                href="mailto:devpmme@gmail.com"
+                href="mailto:technikserwisukontakt@gmail.com"
                 className="hover:text-white transition-colors"
                 target="_blank"
                 rel="noopener noreferrer"
