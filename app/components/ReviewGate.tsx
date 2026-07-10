@@ -76,7 +76,7 @@ export default function ReviewGate({ isOpen, onClose }: { isOpen: boolean; onClo
                   Przykro nam, że coś poszło nie tak. Napisz do nas bezpośrednio, na pewno to wyjaśnimy.
                 </p>
                 <a
-                  href="mailto:devpmme@gmail.com"
+                  href="mailto:kontakt@technik-serwisu.pl"
                   className="block bg-red-600 text-white px-6 py-3 font-bold hover:bg-red-700"
                 >
                   Napisz e-mail

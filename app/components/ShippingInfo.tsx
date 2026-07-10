@@ -27,7 +27,7 @@ export default function ShippingInfo() {
               <strong>Paczkomat:</strong> STS13M
             </li>
             <li>
-              <strong>Odbiorca:</strong> Serwis Technik-Serwisu
+              <strong>Odbiorca:</strong> Technik-Serwisu
             </li>
             <li>
               <strong>Tel:</strong> +48 509 820 956

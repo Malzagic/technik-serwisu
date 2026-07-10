@@ -64,7 +64,7 @@ export default function ContactModal({ isOpen, onClose }: { isOpen: boolean; onC
 
               {/* Email link */}
               <a
-                href="mailto:technikserwisukontakt@gmail.com"
+                href="mailto:kontakt@technik-serwisu.pl"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-4 p-4 bg-[#1a1a1a] hover:bg-[#333] transition-all rounded border border-transparent hover:border-[#ffb800]"
