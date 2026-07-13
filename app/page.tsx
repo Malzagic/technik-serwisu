@@ -181,7 +181,7 @@ export default function Home() {
                 <strong>Paczkomat:</strong> STS13M
               </li>
               <li>
-                <strong>Odbiorca:</strong> &quot;Serwis Technik-Serwisu&quot;
+                <strong>Odbiorca:</strong> &quot;Technik-Serwisu&quot;
               </li>
               <li>
                 <strong>Tel:</strong> +48 509 820 956
