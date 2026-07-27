@@ -1,6 +1,8 @@
+// app/layout.tsx
 import type { Metadata } from "next";
+import { GeoProvider } from "@/app/context/GeoContext";
 import { Inter } from "next/font/google";
-import Script from "next/script"; // Importujemy dedykowany komponent do skryptów
+import Script from "next/script";
 import "./globals.css";
 import Footer from "./components/Footer";
 import Navbar from "./components/Navbar";
@@ -9,16 +11,27 @@ const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.technik-serwisu.pl"),
-  title: "Technik-Serwisu - Profesjonalny Serwis Elektroniki | Pyrzyce i okolice",
+  title: "Mobilny Serwis Elektroniki Stargard & Szczecin | Technik-Serwisu",
   description:
-    "Technik-Serwisu: Serwis telefonów, laptopów, elektroniki i elektronarzędzi w Pyrzycach. Specjalistyczna diagnostyka płyt głównych, naprawy wysyłkowe i micro-soldering.",
+    "Mobilny serwis telefonów, laptopów i elektroniki z dojazdem do klienta w Stargardzie, Szczecinie i w promieniu do 100 km. Ekspresowa wymiana ekranu, baterii, diagnostyka i naprawa gniazd ładowania oraz obsługa wysyłkowa Paczkomatem.",
+  keywords: [
+    "mobilny serwis telefonów Stargard",
+    "serwis elektroniki Szczecin",
+    "wymiana ekranu iPhone Stargard",
+    "wymiana baterii telefon Stargard",
+    "czyszczenie gniazda ładowania",
+    "naprawa telefonów Pyrzyce",
+    "naprawa wysyłkowa Paczkomat",
+    "serwis laptopów Stargard",
+  ],
   alternates: {
     canonical: "/",
   },
   authors: [{ name: "Przemysław Młoczkowski" }],
   openGraph: {
-    title: "Technik-Serwisu - Profesjonalny Serwis Elektroniki",
-    description: "Serwis mobilny elektroniki w Pyrzycach. Naprawa wysyłkowa, darmowa diagnostyka.",
+    title: "Mobilny Serwis Elektroniki z Dojazdem | Technik-Serwisu Stargard",
+    description:
+      "Szybka wymiana ekranów, baterii, diagnostyka i czyszczenie gniazd ładowania z dojazdem pod Twój dom w Stargardzie, Szczecinie i okolicach (do 100 km). Naprawy wysyłkowe Paczkomatem w 24-48h.",
     url: "https://www.technik-serwisu.pl",
     siteName: "Technik Serwisu",
     locale: "pl_PL",
@@ -27,27 +40,46 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
+  // Structured Data (JSON-LD) configured for Stargard base and 100km area coverage
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "LocalBusiness",
-    name: "Technik Serwisu",
-    image: "https://www.technik-serwisu.pl/og-image.png",
+    name: "Technik Serwisu - Mobilny Serwis Elektroniki",
+    image: "https://www.technik-serwisu.pl/brand-page.png",
     telephone: "+48509820956",
+    priceRange: "$$",
     address: {
       "@type": "PostalAddress",
-      addressLocality: "Pyrzyce",
+      addressLocality: "Stargard",
       addressRegion: "Zachodniopomorskie",
       addressCountry: "PL",
     },
     geo: {
       "@type": "GeoCoordinates",
-      latitude: 53.1311,
-      longitude: 14.8683,
+      latitude: 53.3369,
+      longitude: 15.0386,
     },
-    areaServed: {
-      "@type": "GeoCircle",
-      geoMidpoint: { "@type": "GeoCoordinates", latitude: 53.1311, longitude: 14.8683 },
-      geoRadius: "50000",
+    areaServed: [
+      {
+        "@type": "GeoCircle",
+        geoMidpoint: { "@type": "GeoCoordinates", latitude: 53.3369, longitude: 15.0386 },
+        geoRadius: "100000", // 100 km radius
+      },
+      { "@type": "City", name: "Stargard" },
+      { "@type": "City", name: "Szczecin" },
+      { "@type": "City", name: "Pyrzyce" },
+      { "@type": "City", name: "Choszczno" },
+      { "@type": "City", name: "Goleniów" },
+      { "@type": "City", name: "Gryfino" },
+      { "@type": "City", name: "Barlinek" },
+      { "@type": "City", name: "Gorzów Wielkopolski" },
+      { "@type": "City", name: "Wałcz" },
+    ],
+    openingHoursSpecification: {
+      "@type": "OpeningHoursSpecification",
+      dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+      opens: "08:00",
+      closes: "18:00",
     },
   };
 
@@ -55,11 +87,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="pl" className="scroll-smooth">
       <body className={inter.className}>
         <Navbar />
-        <main id="start" className="pt-20">
+        <GeoProvider>
           {children}
-        </main>
-        <Footer />
+          <Footer />
+        </GeoProvider>
 
+        {/* Google Analytics Script */}
         <Script src="https://www.googletagmanager.com/gtag/js?id=G-M6HGD2NL8J" strategy="afterInteractive" />
         <Script id="google-analytics" strategy="afterInteractive">
           {`
@@ -70,6 +103,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           `}
         </Script>
 
+        {/* Structured Data Insertion */}
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       </body>
     </html>
