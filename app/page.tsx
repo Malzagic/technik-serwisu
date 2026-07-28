@@ -1,7 +1,7 @@
 // app/page.tsx
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { ShieldCheck, Truck, Star, Smartphone, BatteryCharging, Zap, MapPin } from "lucide-react";
@@ -11,14 +11,6 @@ import HowItWorks from "./components/HowItWorks";
 import ContactModal from "./components/ContactModal";
 import ReviewGate from "./components/ReviewGate";
 import { useGeo } from "@/app/context/GeoContext";
-// Declare global window interface for Trustindex widget safety
-declare global {
-  interface Window {
-    Trustindex: {
-      reload: () => void;
-    };
-  }
-}
 
 export default function Home() {
   const { userCity, isWithinRange } = useGeo();
@@ -68,7 +60,7 @@ export default function Home() {
   };
 
   return (
-    <main id="start" className="min-h-screen bg-[#1a1a1a] text-white font-sans pt-20">
+    <main id="start" className="min-h-screen bg-[#1a1a1a] text-white font-sans pt-20 scroll-mt-20">
       {/* Hero Section - Dynamic city adaptation based on location */}
       <section className="relative py-20 px-6 border-b-4 border-[#ffb800]">
         <motion.div
@@ -92,35 +84,37 @@ export default function Home() {
             <p className="text-lg md:text-xl text-gray-300 mb-6 leading-relaxed">
               {isWithinRange ? (
                 <>
-                  Profesjonalna diagnostyka, czyszczenie i naprawa gniazd ładowania oraz ekspresowa wymiana ekranów i
-                  baterii w miejscowości <strong className="text-white">{userCity}</strong> i okolicach. Przyjeżdżamy
-                  wyposażonym mobilnym warsztatem pod Twój dom lub firmę!
+                  Ekspresowa wymiana ekranów i baterii, czyszczenie gniazd ładowania oraz diagnostyka sprzętu. Oferujemy
+                  dojazd mobilnym warsztatem pod Twój dom lub firmę w miejscowości{" "}
+                  <strong className="text-white">{userCity}</strong> i okolicach!
                 </>
               ) : (
                 <>
-                  Profesjonalna diagnostyka, czyszczenie i naprawa gniazd ładowania oraz ekspresowa wymiana ekranów,
-                  baterii i tasiemek. Oferujemy wygodną obsługę wysyłkową przez Paczkomat InPost z odsyłką w 24–48h!
+                  Ekspresowa wymiana ekranów i baterii, czyszczenie gniazd ładowania oraz diagnostyka sprzętu. Oferujemy
+                  bezpieczną i wygodną naprawę wysyłkową przez Paczkomat InPost z odsyłką w 24–48h!
                 </>
               )}
             </p>
 
-            <div className="flex flex-col sm:flex-row gap-4">
+            {/* CTA Buttons & Hero Image Container */}
+            <div className="flex flex-col sm:flex-row gap-3">
               <button
                 onClick={() => setIsModalOpen(true)}
-                className="bg-[#ffb800] text-black px-8 py-3 font-bold hover:bg-white transition-colors text-center"
+                className="bg-[#ffb800] text-black px-5 py-2.5 text-sm md:text-base font-bold hover:bg-white transition-colors text-center"
               >
-                {isWithinRange ? "Zamów serwis z dojazdem" : "Zgłoś naprawę"}
+                Zgłoś naprawę
               </button>
               <a
                 href="#wysylka"
-                className="border border-white text-white px-6 py-3 font-bold hover:bg-white hover:text-black transition-colors text-center"
+                className="border border-white text-white px-5 py-2.5 text-sm md:text-base font-bold hover:bg-white hover:text-black transition-colors text-center"
               >
                 Naprawa Paczkomatem (24-48h)
               </a>
             </div>
           </div>
 
-          <div className="relative h-72 w-full border-l-8 border-[#ffb800] overflow-hidden rounded-r-lg">
+          {/* Hero Image - Hidden on mobile devices, visible on medium screens and up */}
+          <div className="hidden md:block relative h-72 w-full border-l-8 border-[#ffb800] overflow-hidden rounded-r-lg">
             <Image
               src="/brand-page.png"
               alt="Mobilny warsztat Technik-Serwisu"

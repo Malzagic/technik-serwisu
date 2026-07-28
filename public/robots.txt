@@ -1,3 +1,10 @@
+# public/robots.txt
 User-agent: *
 Allow: /
+
+# Disallow internal API routes and build artifacts
+Disallow: /api/
+Disallow: /_next/
+
+# Sitemap location
 Sitemap: https://www.technik-serwisu.pl/sitemap.xml

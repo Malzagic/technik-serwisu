@@ -24,12 +24,13 @@ export function GeoProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     async function detectUserLocation() {
       try {
-        const response = await fetch("https://ipapi.co/json/");
+        // Fetch from internal proxy API route to avoid CORS and rate-limit issues
+        const response = await fetch("/api/geo");
         if (!response.ok) return;
 
         const data = await response.json();
-        const userLat = parseFloat(data.latitude);
-        const userLng = parseFloat(data.longitude);
+        const userLat = parseFloat(data.lat);
+        const userLng = parseFloat(data.lng);
         const cityName = data.city;
 
         if (userLat && userLng && cityName) {

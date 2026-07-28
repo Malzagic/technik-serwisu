@@ -11,7 +11,7 @@ const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.technik-serwisu.pl"),
-  title: "Mobilny Serwis Elektroniki Stargard & Szczecin | Technik-Serwisu",
+  title: "Mobilny Serwis Telefonów & Elektroniki Stargard, Szczecin | Technik-Serwisu",
   description:
     "Mobilny serwis telefonów, laptopów i elektroniki z dojazdem do klienta w Stargardzie, Szczecinie i w promieniu do 100 km. Ekspresowa wymiana ekranu, baterii, diagnostyka i naprawa gniazd ładowania oraz obsługa wysyłkowa Paczkomatem.",
   keywords: [
@@ -40,11 +40,13 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
-  // Structured Data (JSON-LD) configured for Stargard base and 100km area coverage
+  // Structured Data (JSON-LD) optimized for phone repair and regional SEO
   const jsonLd = {
     "@context": "https://schema.org",
-    "@type": "LocalBusiness",
-    name: "Technik Serwisu - Mobilny Serwis Elektroniki",
+    "@type": ["LocalBusiness", "ElectronicsRepairShop"], // More specific Schema type
+    name: "Technik Serwisu - Mobilny Serwis i Naprawa Telefonów",
+    description:
+      "Mobilny serwis i naprawa telefonów, smartfonów, laptopów oraz elektroniki z dojazdem do klienta w Stargardzie, Pyrzycach, Szczecinie i okolicach.",
     image: "https://www.technik-serwisu.pl/brand-page.png",
     telephone: "+48509820956",
     priceRange: "$$",
@@ -59,6 +61,16 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       latitude: 53.3369,
       longitude: 15.0386,
     },
+    // Key services explicitly declared for search engines
+    knowsAbout: [
+      "Naprawa telefonów",
+      "Serwis telefonów",
+      "Wymiana wyświetlacza",
+      "Wymiana baterii",
+      "Czyszczenie gniazda ładowania",
+      "Naprawa smartfonów iPhone i Android",
+      "Serwis laptopów",
+    ],
     areaServed: [
       {
         "@type": "GeoCircle",
@@ -78,8 +90,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     openingHoursSpecification: {
       "@type": "OpeningHoursSpecification",
       dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
-      opens: "08:00",
-      closes: "18:00",
+      opens: "09:00",
+      closes: "17:00",
     },
   };
 
