@@ -10,21 +10,23 @@ interface GeoContextType {
   isLoading: boolean;
 }
 
+const DEFAULT_CITY = "Stargard";
+const MAX_SERVICE_RADIUS_KM = 100;
+
 const GeoContext = createContext<GeoContextType>({
-  userCity: "Stargard",
+  userCity: DEFAULT_CITY,
   isWithinRange: true,
   isLoading: true,
 });
 
 export function GeoProvider({ children }: { children: ReactNode }) {
-  const [userCity, setUserCity] = useState<string>("Stargard");
+  const [userCity, setUserCity] = useState<string>(DEFAULT_CITY);
   const [isWithinRange, setIsWithinRange] = useState<boolean>(true);
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
   useEffect(() => {
     async function detectUserLocation() {
       try {
-        // Fetch from internal proxy API route to avoid CORS and rate-limit issues
         const response = await fetch("/api/geo");
         if (!response.ok) return;
 
@@ -33,21 +35,18 @@ export function GeoProvider({ children }: { children: ReactNode }) {
         const userLng = parseFloat(data.lng);
         const cityName = data.city;
 
-        if (userLat && userLng && cityName) {
-          const distance = calculateDistance(STARGARD_COORDS.lat, STARGARD_COORDS.lng, userLat, userLng);
+        if (!userLat || !userLng || !cityName) return;
 
-          // Radius check: 100km limit from Stargard
-          if (distance <= 100) {
-            setUserCity(cityName);
-            setIsWithinRange(true);
-          } else {
-            setUserCity("Stargard");
-            setIsWithinRange(false);
-          }
-        }
+        const distance = calculateDistance(STARGARD_COORDS.lat, STARGARD_COORDS.lng, userLat, userLng);
+
+        const isNearby = distance <= MAX_SERVICE_RADIUS_KM;
+
+        setUserCity(isNearby ? cityName : DEFAULT_CITY);
+        setIsWithinRange(isNearby);
       } catch (error) {
-        // Fallback gracefully to default city (Stargard)
-        console.warn("Could not determine user location via IP, defaulting to Stargard:", error);
+        console.warn("Geolocation resolution failed, fallback applied:", error);
+        setUserCity(DEFAULT_CITY);
+        setIsWithinRange(true);
       } finally {
         setIsLoading(false);
       }
@@ -60,7 +59,7 @@ export function GeoProvider({ children }: { children: ReactNode }) {
 }
 
 /**
- * Custom hook to consume geolocation context across the application
+ * Custom hook to consume geolocation context throughout the application.
  */
 export function useGeo() {
   return useContext(GeoContext);
