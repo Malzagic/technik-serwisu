@@ -49,29 +49,12 @@ export function GeoProvider({ children }: { children: ReactNode }) {
     async function detectUserLocation() {
       try {
         const response = await fetch("/api/geo");
-        // if (!response.ok) return;
-
-        // const data = await response.json();
-        // const userLat = parseFloat(data.lat);
-        // const userLng = parseFloat(data.lng);
+        if (!response.ok) return;
 
         const data = await response.json();
-
-        console.log("=== GEO API RESPONSE ===");
-        console.log(data);
-
         const userLat = parseFloat(data.lat);
         const userLng = parseFloat(data.lng);
         const rawCity = data.city;
-
-        console.log("=== GEO PARSED ===");
-        console.log({
-          rawCity,
-          userLat,
-          userLng,
-          latValid: Number.isFinite(userLat),
-          lngValid: Number.isFinite(userLng),
-        });
 
         if (!rawCity) return;
 
@@ -82,36 +65,16 @@ export function GeoProvider({ children }: { children: ReactNode }) {
           city => normalizedCity.includes(city) || city.includes(normalizedCity),
         );
 
-        console.log("=== REGIONAL CHECK ===");
-        console.log({
-          rawCity,
-          normalizedCity,
-          isRegionalCity,
-        });
-
         // 2. Secondary check: Mathematical distance radius
         let isWithinRadius = false;
-        if (userLat && userLng) {
+        if (Number.isFinite(userLat) && Number.isFinite(userLng)) {
           const distance = calculateDistance(STARGARD_COORDS.lat, STARGARD_COORDS.lng, userLat, userLng);
           isWithinRadius = distance <= MAX_SERVICE_RADIUS_KM;
         }
-
-        console.log("=== RADIUS CHECK ===");
-        console.log({
-          isWithinRadius,
-        });
-
         const isNearby = isRegionalCity || isWithinRadius;
 
         setUserCity(isNearby ? rawCity : DEFAULT_CITY);
         setIsWithinRange(isNearby);
-
-        console.log("=== FINAL GEO ===");
-        console.log({
-          isRegionalCity,
-          isWithinRadius,
-          isNearby,
-        });
       } catch (error) {
         console.warn("Geolocation resolution failed, fallback applied:", error);
         setUserCity(DEFAULT_CITY);
