@@ -39,6 +39,9 @@ export default function Home() {
   const [isShippingOpen, setIsShippingOpen] = useState(false);
   const [isReviewOpen, setIsReviewOpen] = useState(false);
 
+  console.log("User City:", userCity);
+  console.log("Is Within Range:", isWithinRange);
+
   // Filary Usług B2B & B2C
   const services = [
     {
