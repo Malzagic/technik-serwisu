@@ -13,6 +13,25 @@ interface GeoContextType {
 const DEFAULT_CITY = "Stargard";
 const MAX_SERVICE_RADIUS_KM = 100;
 
+// Regional cities list for instant local validation (resilient against cloud IP proxy shifts)
+const REGIONAL_CITIES = [
+  "stargard",
+  "szczecin",
+  "pyrzyce",
+  "myślibórz",
+  "mysliborz",
+  "lipiany",
+  "gryfino",
+  "choszczno",
+  "barlinek",
+  "gorzów wielkopolski",
+  "gorzow wielkopolski",
+  "wałcz",
+  "walcz",
+  "goleniów",
+  "goleniow",
+];
+
 const GeoContext = createContext<GeoContextType>({
   userCity: DEFAULT_CITY,
   isWithinRange: true,
@@ -33,15 +52,27 @@ export function GeoProvider({ children }: { children: ReactNode }) {
         const data = await response.json();
         const userLat = parseFloat(data.lat);
         const userLng = parseFloat(data.lng);
-        const cityName = data.city;
+        const rawCity = data.city;
 
-        if (!userLat || !userLng || !cityName) return;
+        if (!rawCity) return;
 
-        const distance = calculateDistance(STARGARD_COORDS.lat, STARGARD_COORDS.lng, userLat, userLng);
+        const normalizedCity = rawCity.toLowerCase().trim();
 
-        const isNearby = distance <= MAX_SERVICE_RADIUS_KM;
+        // 1. Primary check: Exact or partial match with regional service cities
+        const isRegionalCity = REGIONAL_CITIES.some(
+          city => normalizedCity.includes(city) || city.includes(normalizedCity),
+        );
 
-        setUserCity(isNearby ? cityName : DEFAULT_CITY);
+        // 2. Secondary check: Mathematical distance radius
+        let isWithinRadius = false;
+        if (userLat && userLng) {
+          const distance = calculateDistance(STARGARD_COORDS.lat, STARGARD_COORDS.lng, userLat, userLng);
+          isWithinRadius = distance <= MAX_SERVICE_RADIUS_KM;
+        }
+
+        const isNearby = isRegionalCity || isWithinRadius;
+
+        setUserCity(isNearby ? rawCity : DEFAULT_CITY);
         setIsWithinRange(isNearby);
       } catch (error) {
         console.warn("Geolocation resolution failed, fallback applied:", error);

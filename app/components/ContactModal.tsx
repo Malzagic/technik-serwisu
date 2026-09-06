@@ -3,12 +3,13 @@
 
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, Phone, Mail, Building2, User, Send, CheckCircle2, Shield } from "lucide-react";
+import { X, Phone, Mail, Building2, User, Send, CheckCircle2, Shield, Loader2 } from "lucide-react";
 
 export default function ContactModal({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) {
   const [showPhone, setShowPhone] = useState(false);
   const [clientType, setClientType] = useState<"b2c" | "b2b">("b2c");
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false); // Poprawka: Dodano brakujący stan
   const [formData, setFormData] = useState({
     name: "",
     companyName: "",
@@ -17,14 +18,36 @@ export default function ContactModal({ isOpen, onClose }: { isOpen: boolean; onC
     message: "",
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Zgłoszenie:", { clientType, ...formData });
-    setIsSubmitted(true);
+    setIsSubmitting(true);
+
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          ...formData,
+          clientType, // Dodatkowo przekazujemy typ klienta (B2B / B2C)
+        }),
+      });
+
+      if (res.ok) {
+        setIsSubmitted(true); // Użycie gotowego widoku sukcesu z JSX
+      } else {
+        alert("Wystąpił błąd podczas wysyłania. Spróbuj ponownie lub zadzwoń bezpośrednio.");
+      }
+    } catch (err) {
+      console.error(err);
+      alert("Błąd połączenia. Spróbuj ponownie później.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleReset = () => {
     setIsSubmitted(false);
+    setFormData({ name: "", companyName: "", phone: "", email: "", message: "" });
     onClose();
   };
 
@@ -41,7 +64,7 @@ export default function ContactModal({ isOpen, onClose }: { isOpen: boolean; onC
             className="fixed inset-0 bg-black/80 backdrop-blur-sm"
           />
 
-          {/* Modal Container - Idealnie wyśrodkowany */}
+          {/* Modal Container */}
           <motion.div
             initial={{ opacity: 0, scale: 0.95, y: 10 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
@@ -116,7 +139,7 @@ export default function ContactModal({ isOpen, onClose }: { isOpen: boolean; onC
                   <div className="flex-grow border-t border-[#333]"></div>
                 </div>
 
-                {/* Wybór typu klienta: Prywatnie vs Firma */}
+                {/* Wybór typu klienta */}
                 <div className="flex gap-2 mb-4 bg-[#1a1a1a] p-1 border border-[#333]">
                   <button
                     type="button"
@@ -215,7 +238,6 @@ export default function ContactModal({ isOpen, onClose }: { isOpen: boolean; onC
                     ></textarea>
                   </div>
 
-                  {/* Informacja o rozliczeniu / RODO */}
                   <div className="flex items-center gap-2 text-[10px] text-gray-400 pt-1">
                     <Shield size={14} className="text-[#ffb800] flex-shrink-0" />
                     <span>
@@ -227,9 +249,18 @@ export default function ContactModal({ isOpen, onClose }: { isOpen: boolean; onC
 
                   <button
                     type="submit"
-                    className="w-full bg-[#ffb800] hover:bg-white text-black font-bold py-3 px-4 text-xs uppercase tracking-wider transition-colors flex items-center justify-center gap-2 mt-2"
+                    disabled={isSubmitting}
+                    className="w-full bg-[#ffb800] hover:bg-white text-black font-bold py-3 px-4 text-xs uppercase tracking-wider transition-colors flex items-center justify-center gap-2 mt-2 disabled:opacity-50 disabled:cursor-not-allowed"
                   >
-                    <Send size={14} /> Wyślij Zgłoszenie
+                    {isSubmitting ? (
+                      <>
+                        <Loader2 size={14} className="animate-spin" /> Wysyłanie...
+                      </>
+                    ) : (
+                      <>
+                        <Send size={14} /> Wyślij Zgłoszenie
+                      </>
+                    )}
                   </button>
                 </form>
 
