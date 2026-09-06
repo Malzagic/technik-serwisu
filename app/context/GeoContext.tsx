@@ -26,10 +26,12 @@ const REGIONAL_CITIES = [
   "barlinek",
   "gorzów wielkopolski",
   "gorzow wielkopolski",
-  "wałcz",
-  "walcz",
   "goleniów",
   "goleniow",
+  "kozielice",
+  "banie",
+  "pełczyce",
+  "pelczyce",
 ];
 
 const GeoContext = createContext<GeoContextType>({
@@ -85,6 +87,8 @@ export function GeoProvider({ children }: { children: ReactNode }) {
 
     detectUserLocation();
   }, []);
+
+  console.log("GeoContext State:", { userCity, isWithinRange, isLoading });
 
   return <GeoContext.Provider value={{ userCity, isWithinRange, isLoading }}>{children}</GeoContext.Provider>;
 }
