@@ -7,7 +7,7 @@ import "./globals.css";
 import Footer from "./components/Footer";
 import Navbar from "./components/Navbar";
 
-const inter = Inter({ subsets: ["latin"] });
+const inter = Inter({ subsets: ["latin"], display: "swap", preload: true });
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.technik-serwisu.pl"),
@@ -115,7 +115,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 
         {/* Google Analytics Script */}
         <Script src="https://www.googletagmanager.com/gtag/js?id=G-M6HGD2NL8J" strategy="afterInteractive" />
-        <Script id="google-analytics" strategy="afterInteractive">
+        <Script id="google-analytics" strategy="lazyOnload">
           {`
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
