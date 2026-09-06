@@ -11,27 +11,30 @@ const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.technik-serwisu.pl"),
-  title: "Mobilny Serwis Telefonów & Elektroniki Stargard, Szczecin | Technik-Serwisu",
+  title: "Outsourcing IT, Budowa Sieci & Serwis B2B/B2C Stargard, Szczecin | Technik-Serwisu",
   description:
-    "Mobilny serwis telefonów, laptopów i elektroniki z dojazdem do klienta w Stargardzie, Szczecinie i w promieniu do 100 km. Ekspresowa wymiana ekranu, baterii, diagnostyka i naprawa gniazd ładowania oraz obsługa wysyłkowa Paczkomatem.",
+    "Kompleksowa obsługa IT dla firm oraz mobilny serwis sprzętu z dojazdem (Stargard, Szczecin i okolice do 100km). Projektowanie sieci LAN/WiFi, outsourcing IT, migracje danych, obsługa flotowa oraz serwis komputerów i smartfonów.",
   keywords: [
-    "mobilny serwis telefonów Stargard",
-    "serwis elektroniki Szczecin",
-    "wymiana ekranu iPhone Stargard",
-    "wymiana baterii telefon Stargard",
-    "czyszczenie gniazda ładowania",
-    "naprawa telefonów Pyrzyce",
+    "outsourcing IT Stargard",
+    "outsourcing IT Szczecin",
+    "budowa sieci komputerowych Stargard",
+    "tworzenie stron internetowych",
+    "montaż sieci LAN WiFi Szczecin",
+    "obsługa IT firm Stargard",
+    "mobilny serwis komputerowy Szczecin",
+    "serwis laptopów flotowych Stargard",
+    "naprawa telefonów z dojazdem",
+    "mikrolutowanie BGA Szczecin",
     "naprawa wysyłkowa Paczkomat",
-    "serwis laptopów Stargard",
   ],
   alternates: {
     canonical: "/",
   },
   authors: [{ name: "Przemysław Młoczkowski" }],
   openGraph: {
-    title: "Mobilny Serwis Elektroniki z Dojazdem | Technik-Serwisu Stargard",
+    title: "Outsourcing IT dla Firm & Mobilny Serwis Sprzętu | Technik-Serwisu",
     description:
-      "Szybka wymiana ekranów, baterii, diagnostyka i czyszczenie gniazd ładowania z dojazdem pod Twój dom w Stargardzie, Szczecinie i okolicach (do 100 km). Naprawy wysyłkowe Paczkomatem w 24-48h.",
+      "Partner technologiczny dla biznesu i klientów indywidualnych. Projektowanie sieci od zera, migracje danych, stałe wsparcie IT oraz ekspresowy mobilny serwis laptopów i smartfonów w Stargardzie, Szczecinie i całym regionie.",
     url: "https://www.technik-serwisu.pl",
     siteName: "Technik Serwisu",
     locale: "pl_PL",
@@ -40,13 +43,13 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
-  // Structured Data (JSON-LD) optimized for phone repair and regional SEO
+  // Structured Data (JSON-LD) optimized for hybrid IT Services & Hardware Repair
   const jsonLd = {
     "@context": "https://schema.org",
-    "@type": ["LocalBusiness", "ElectronicsRepairShop"], // More specific Schema type
-    name: "Technik Serwisu - Mobilny Serwis i Naprawa Telefonów",
+    "@type": ["LocalBusiness", "RepairService"],
+    name: "Technik Serwisu - Wsparcie IT dla Firm & Mobilny Serwis Elektroniki",
     description:
-      "Mobilny serwis i naprawa telefonów, smartfonów, laptopów oraz elektroniki z dojazdem do klienta w Stargardzie, Pyrzycach, Szczecinie i okolicach.",
+      "Projektowanie sieci komputerowych, outsourcing IT, migracje danych dla firm oraz mobilny serwis laptopów, smartfonów i elektroniki z dojazdem do klienta (Stargard, Szczecin, Pyrzyce i region do 100 km).",
     image: "https://www.technik-serwisu.pl/brand-page.png",
     telephone: "+48509820956",
     priceRange: "$$",
@@ -61,21 +64,23 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       latitude: 53.3369,
       longitude: 15.0386,
     },
-    // Key services explicitly declared for search engines
     knowsAbout: [
-      "Naprawa telefonów",
-      "Serwis telefonów",
-      "Wymiana wyświetlacza",
-      "Wymiana baterii",
-      "Czyszczenie gniazda ładowania",
-      "Naprawa smartfonów iPhone i Android",
-      "Serwis laptopów",
+      "Outsourcing IT dla firm",
+      "Projektowanie i budowa sieci LAN WiFi",
+      "Administracja i konfiguracja routerów oraz szaf RACK",
+      "Migracja danych i stanowisk pracy",
+      "Wdrażanie Microsoft 365 i oprogramowania biurowego",
+      "Tworzenie stron internetowych i automatyzacja procesów",
+      "Serwis flotowy laptopów i smartfonów",
+      "Mobilny serwis komputerowy z dojazdem",
+      "Mikrolutowanie BGA i naprawa płyt głównych",
+      "Wymiana ekranów i baterii w telefonach",
     ],
     areaServed: [
       {
         "@type": "GeoCircle",
         geoMidpoint: { "@type": "GeoCoordinates", latitude: 53.3369, longitude: 15.0386 },
-        geoRadius: "100000", // 100 km radius
+        geoRadius: "100000", // Promień 100 km
       },
       { "@type": "City", name: "Stargard" },
       { "@type": "City", name: "Szczecin" },
@@ -85,11 +90,15 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       { "@type": "City", name: "Gryfino" },
       { "@type": "City", name: "Barlinek" },
       { "@type": "City", name: "Gorzów Wielkopolski" },
-      { "@type": "City", name: "Wałcz" },
+      { "@type": "City", name: "Myślibórz" },
+      { "@type": "City", name: "Lipiany" },
+      { "@type": "City", name: "Kozielice" },
+      { "@type": "City", name: "Banie" },
+      { "@type": "City", name: "Pełczyce" },
     ],
     openingHoursSpecification: {
       "@type": "OpeningHoursSpecification",
-      dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+      dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
       opens: "09:00",
       closes: "17:00",
     },
@@ -111,7 +120,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
-            gtag('config', 'G-M6HGD2NL8J');
+            gtag('config', '${process.env.NEXT_PUBLIC_GA_ID}');
           `}
         </Script>
 

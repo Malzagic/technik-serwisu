@@ -5,12 +5,11 @@ import React, { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X } from "lucide-react";
+import { Menu, X, Building2 } from "lucide-react";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
 
-  // Smooth scroll helper function to return to the top of the page
   const handleScrollToTop = (e: React.MouseEvent) => {
     e.preventDefault();
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -18,7 +17,7 @@ export default function Navbar() {
   };
 
   return (
-    <nav className="fixed w-full z-50 bg-[#1a1a1a]/80 backdrop-blur-lg border-b border-[#333333]">
+    <nav className="fixed w-full z-50 bg-[#1a1a1a]/90 backdrop-blur-lg border-b border-[#333333]">
       <div className="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
         {/* Brand Logo Section */}
         <Link href="#start" onClick={handleScrollToTop} className="flex items-center gap-3">
@@ -32,7 +31,7 @@ export default function Navbar() {
         </Link>
 
         {/* Desktop Navigation Links */}
-        <div className="hidden md:flex items-center space-x-10 text-sm font-semibold tracking-wide uppercase">
+        <div className="hidden md:flex items-center space-x-8 text-xs font-bold tracking-wider uppercase">
           <a
             href="#start"
             onClick={handleScrollToTop}
@@ -43,15 +42,21 @@ export default function Navbar() {
           <a href="#uslugi" className="text-gray-300 hover:text-[#ffb800] transition-colors">
             Usługi
           </a>
+          <a
+            href="#b2b"
+            className="text-[#ffb800] hover:text-white transition-colors flex items-center gap-1 bg-[#262626] px-2.5 py-1 rounded border border-[#ffb800]/30"
+          >
+            <Building2 size={13} /> dla firm
+          </a>
           <a href="#wysylka" className="text-gray-300 hover:text-[#ffb800] transition-colors">
             Paczkomat
           </a>
           <a href="#o-mnie" className="text-gray-300 hover:text-[#ffb800] transition-colors">
-            O mnie
+            O firmie
           </a>
           <a
             href="#kontakt"
-            className="bg-[#ffb800] text-black px-6 py-2.5 rounded-sm font-bold hover:bg-white transition-all"
+            className="bg-[#ffb800] text-black px-5 py-2 rounded-sm font-extrabold hover:bg-white transition-all shadow-md"
           >
             Kontakt
           </a>
@@ -76,7 +81,7 @@ export default function Navbar() {
             exit={{ opacity: 0, y: -20 }}
             className="md:hidden absolute w-full bg-[#1a1a1a] border-b border-[#333333] shadow-2xl"
           >
-            <div className="flex flex-col p-6 space-y-6 text-lg font-medium text-center uppercase">
+            <div className="flex flex-col p-6 space-y-5 text-sm font-bold text-center uppercase tracking-wider">
               <a
                 href="#start"
                 onClick={handleScrollToTop}
@@ -87,14 +92,21 @@ export default function Navbar() {
               <a href="#uslugi" onClick={() => setIsOpen(false)} className="hover:text-[#ffb800]">
                 Usługi
               </a>
+              <a
+                href="#b2b"
+                onClick={() => setIsOpen(false)}
+                className="text-[#ffb800] flex items-center justify-center gap-2 py-1 bg-[#262626] border border-[#ffb800]/40 rounded"
+              >
+                <Building2 size={16} /> Oferta Dla Firm (B2B)
+              </a>
               <a href="#wysylka" onClick={() => setIsOpen(false)} className="hover:text-[#ffb800]">
-                Paczkomat
+                Paczkomat InPost
               </a>
               <a href="#o-mnie" onClick={() => setIsOpen(false)} className="hover:text-[#ffb800]">
-                O mnie
+                O firmie
               </a>
-              <a href="#kontakt" onClick={() => setIsOpen(false)} className="text-[#ffb800] font-bold">
-                Kontakt
+              <a href="#kontakt" onClick={() => setIsOpen(false)} className="text-[#ffb800] font-black text-base">
+                Kontakt / Zgłoszenie
               </a>
             </div>
           </motion.div>

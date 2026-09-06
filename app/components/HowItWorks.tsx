@@ -1,30 +1,36 @@
+// components/HowItWorks.tsx
 "use client";
+
 import React from "react";
 import { motion } from "framer-motion";
-import { Phone, Search, Wrench } from "lucide-react";
+import { PhoneCall, FileSearch, ShieldCheck } from "lucide-react";
 
 export default function HowItWorks() {
   const steps = [
     {
-      icon: <Phone size={32} />,
-      title: "Kontakt",
-      desc: "Zadzwoń lub napisz. Omówimy problem, wstępnie wycenimy usługę i ustalimy sposób dostarczenia sprzętu.",
+      icon: <PhoneCall size={32} />,
+      title: "1. Zgłoszenie & Wycena",
+      desc: "Kontaktujesz się telefonicznie lub przez formularz. Ustalamy zakres prac, szacowane koszty oraz formę realizacji (dojazd do biura/domu, odbiór sprzętu lub Paczkomat).",
     },
     {
-      icon: <Search size={32} />,
-      title: "Diagnostyka",
-      desc: "Przeprowadzam dokładną analizę usterki. Przed każdą naprawą otrzymujesz pełną informację o kosztach.",
+      icon: <FileSearch size={32} />,
+      title: "2. Diagnostyka & Poufność",
+      desc: "Przeprowadzamy szczegółową analizę usterki. Przed przystąpieniem do pracy zatwierdzasz ostateczny kosztorys. Gwarantujemy 100% bezpieczeństwa i poufności danych.",
     },
     {
-      icon: <Wrench size={32} />,
-      title: "Naprawa",
-      desc: "Profesjonalny serwis z dbałością o każdy detal. Po naprawie sprzęt jest gotowy do odbioru lub wysyłki.",
+      icon: <ShieldCheck size={32} />,
+      title: "3. Naprawa & Rozliczenie",
+      desc: "Realizujemy serwis w mobilnym warsztacie lub stanowisku BGA. Sprzęt przechodzi testy końcowe. Wystawiamy fakturę i przekazujemy naprawiony sprzęt.",
     },
   ];
 
   return (
     <section className="py-20 px-6 max-w-7xl mx-auto" id="proces">
-      <h2 className="text-3xl font-bold mb-12 border-l-4 border-[#ffb800] pl-4">Jak to działa?</h2>
+      <div className="mb-12">
+        <h2 className="text-xs uppercase tracking-widest text-[#ffb800] font-bold mb-2">Przejrzysty Proces</h2>
+        <h3 className="text-3xl font-extrabold border-l-4 border-[#ffb800] pl-4">Jak wygląda współpraca?</h3>
+      </div>
+
       <div className="grid md:grid-cols-3 gap-8">
         {steps.map((step, i) => (
           <motion.div
@@ -33,11 +39,15 @@ export default function HowItWorks() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: i * 0.2 }}
-            className="flex flex-col items-center text-center p-6 bg-[#262626] rounded-sm"
+            className="flex flex-col items-center text-center p-8 bg-[#202020] border border-[#333] hover:border-[#ffb800] transition-colors rounded-sm group"
           >
-            <div className="mb-4 text-[#ffb800]">{step.icon}</div>
-            <h3 className="text-xl font-bold mb-2">{step.title}</h3>
-            <p className="text-gray-400 text-sm">{step.desc}</p>
+            <div className="mb-6 p-4 bg-[#262626] text-[#ffb800] rounded-full border border-[#333] group-hover:scale-110 transition-transform">
+              {step.icon}
+            </div>
+            <h4 className="text-xl font-bold mb-3 text-white group-hover:text-[#ffb800] transition-colors">
+              {step.title}
+            </h4>
+            <p className="text-gray-400 text-sm leading-relaxed">{step.desc}</p>
           </motion.div>
         ))}
       </div>
