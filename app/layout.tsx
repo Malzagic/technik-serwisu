@@ -8,6 +8,8 @@ import Footer from "./components/Footer";
 import Navbar from "./components/Navbar";
 
 const inter = Inter({ subsets: ["latin"], display: "swap", preload: true });
+const GOOGLE_ANALYTICS_ID = process.env.NEXT_PUBLIC_GA_ID || "G-M6HGD2NL8J";
+const GA_SCRIPT_SRC = `https://www.googletagmanager.com/gtag/js?id=${GOOGLE_ANALYTICS_ID}`;
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.technik-serwisu.pl"),
@@ -114,13 +116,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         </GeoProvider>
 
         {/* Google Analytics Script */}
-        <Script src="https://www.googletagmanager.com/gtag/js?id=G-M6HGD2NL8J" strategy="afterInteractive" />
+        <Script src={GA_SCRIPT_SRC} strategy="afterInteractive" />
         <Script id="google-analytics" strategy="lazyOnload">
           {`
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
-            gtag('config', '${process.env.NEXT_PUBLIC_GA_ID}');
+            gtag('config', '${GOOGLE_ANALYTICS_ID}');
           `}
         </Script>
 
