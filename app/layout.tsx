@@ -11,30 +11,31 @@ const inter = Inter({ subsets: ["latin"], display: "swap", preload: true });
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.technik-serwisu.pl"),
-  title: "Outsourcing IT, Budowa Sieci & Serwis B2B/B2C Stargard, Szczecin | Technik-Serwisu",
+  title: "Outsourcing IT, Strony WWW, Informatyk & Serwis | Stargard, Szczecin, Pyrzyce",
   description:
-    "Kompleksowa obsługa IT dla firm oraz mobilny serwis sprzętu z dojazdem (Stargard, Szczecin i okolice do 100km). Projektowanie sieci LAN/WiFi, outsourcing IT, migracje danych, obsługa flotowa oraz serwis komputerów i smartfonów.",
+    "Kompleksowy outsourcing IT i tworzenie stron WWW dla firm oraz mobilny informatyk z dojazdem. Szybka naprawa komputerów, laptopów i telefonów / smartfonów (Stargard, Szczecin, Pyrzyce i okolice).",
   keywords: [
     "outsourcing IT Stargard",
-    "outsourcing IT Szczecin",
-    "budowa sieci komputerowych Stargard",
-    "tworzenie stron internetowych",
-    "montaż sieci LAN WiFi Szczecin",
-    "obsługa IT firm Stargard",
-    "mobilny serwis komputerowy Szczecin",
-    "serwis laptopów flotowych Stargard",
+    "tworzenie stron internetowych Stargard",
+    "strony www Szczecin",
+    "informatyk Pyrzyce",
+    "naprawa komputerów Pyrzyce",
     "naprawa telefonów z dojazdem",
+    "serwis smartfonów Stargard",
+    "wymiana ekranu szybki telefon",
+    "mobilny informatyk Szczecin",
+    "serwis komputerowy Stargard",
+    "budowa sieci komputerowych Stargard",
     "mikrolutowanie BGA Szczecin",
-    "naprawa wysyłkowa Paczkomat",
   ],
   alternates: {
     canonical: "/",
   },
   authors: [{ name: "Przemysław Młoczkowski" }],
   openGraph: {
-    title: "Outsourcing IT dla Firm & Mobilny Serwis Sprzętu | Technik-Serwisu",
+    title: "Outsourcing IT, Strony WWW & Mobilny Serwis Komputerów i Telefonów | Technik-Serwisu",
     description:
-      "Partner technologiczny dla biznesu i klientów indywidualnych. Projektowanie sieci od zera, migracje danych, stałe wsparcie IT oraz ekspresowy mobilny serwis laptopów i smartfonów w Stargardzie, Szczecinie i całym regionie.",
+      "Twój partner technologiczny. Tworzenie stron WWW, budowa sieci i outsourcing IT dla biznesu oraz szybki serwis komputerów, laptopów i smartfonów z dojazdem w Stargardzie, Szczecinie i Pyrzycach.",
     url: "https://www.technik-serwisu.pl",
     siteName: "Technik Serwisu",
     locale: "pl_PL",
@@ -43,13 +44,13 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
-  // Structured Data (JSON-LD) optimized for hybrid IT Services & Hardware Repair
+  // Structured Data (JSON-LD) zwięźle łączące usługi IT, strony WWW i naprawę elektroniki
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": ["LocalBusiness", "RepairService"],
-    name: "Technik Serwisu - Wsparcie IT dla Firm & Mobilny Serwis Elektroniki",
+    name: "Technik Serwisu - Wsparcie IT, Strony WWW, Mobilny Informatyk & Serwis Telefonów",
     description:
-      "Projektowanie sieci komputerowych, outsourcing IT, migracje danych dla firm oraz mobilny serwis laptopów, smartfonów i elektroniki z dojazdem do klienta (Stargard, Szczecin, Pyrzyce i region do 100 km).",
+      "Tworzenie stron internetowych, outsourcing IT i projektowanie sieci dla firm oraz mobilny serwis komputerów, laptopów, telefonów i smartfonów z dojazdem (Stargard, Szczecin, Pyrzyce i okolice do 100 km).",
     image: "https://www.technik-serwisu.pl/brand-page.png",
     telephone: "+48509820956",
     priceRange: "$$",
@@ -65,16 +66,15 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       longitude: 15.0386,
     },
     knowsAbout: [
-      "Outsourcing IT dla firm",
+      "Outsourcing IT i obsługa firm",
+      "Tworzenie nowoczesnych stron internetowych i aplikacji",
       "Projektowanie i budowa sieci LAN WiFi",
-      "Administracja i konfiguracja routerów oraz szaf RACK",
-      "Migracja danych i stanowisk pracy",
-      "Wdrażanie Microsoft 365 i oprogramowania biurowego",
-      "Tworzenie stron internetowych i automatyzacja procesów",
-      "Serwis flotowy laptopów i smartfonów",
-      "Mobilny serwis komputerowy z dojazdem",
-      "Mikrolutowanie BGA i naprawa płyt głównych",
-      "Wymiana ekranów i baterii w telefonach",
+      "Mobilny serwis komputerowy i pogotowie IT",
+      "Naprawa telefonów i smartfonów z dojazdem",
+      "Wymiana wyświetlaczy, szybki i baterii w telefonach",
+      "Mikrolutowanie BGA i naprawa płyty głównej",
+      "Administracja sieciami i serwerami",
+      "Migracje danych i stanowisk pracy",
     ],
     areaServed: [
       {
