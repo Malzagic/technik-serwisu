@@ -9,15 +9,15 @@ export async function POST(request: Request) {
     const body = await request.json();
     const { name, email, phone, message, serviceType } = body;
 
-    // Prosta walidacja pól
+    // Basic field validation
     if (!name || !email || !message) {
       return NextResponse.json({ error: "Wszystkie wymagane pola muszą być wypełnione." }, { status: 400 });
     }
 
-    // Wysyłka wiadomości na Twój adres e-mail
+    // Send the message to your email address
     const data = await resend.emails.send({
-      from: "Technik Serwisu Contact <onboarding@resend.dev>", // Po weryfikacji domeny zmienimy na powiadomienia@technik-serwisu.pl
-      to: ["kontakt@technik-serwisu.pl"], // Twój e-mail odbiorczy
+      from: "Technik Serwisu Contact <onboarding@resend.dev>", // Switch to powiadomienia@technik-serwisu.pl after domain verification
+      to: ["kontakt@technik-serwisu.pl"], // Recipient email address
       subject: `[Nowe Zgłoszenie] ${serviceType || "Formularz Kontaktowy"} - ${name}`,
       replyTo: email,
       html: `

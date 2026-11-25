@@ -5,7 +5,9 @@ import { Inter } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
 import Footer from "./components/Footer";
+import MobileBottomNav from "./components/MobileBottomNav";
 import Navbar from "./components/Navbar";
+import { AudienceProvider } from "./context/AudienceContext";
 
 const inter = Inter({ subsets: ["latin"], display: "swap", preload: true });
 const GOOGLE_ANALYTICS_ID = process.env.NEXT_PUBLIC_GA_ID || "G-M6HGD2NL8J";
@@ -46,7 +48,7 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
-  // Structured Data (JSON-LD) zwięźle łączące usługi IT, strony WWW i naprawę elektroniki
+  // Structured Data (JSON-LD) concisely combining IT services, websites, and electronics repair
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": ["LocalBusiness", "RepairService"],
@@ -82,7 +84,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       {
         "@type": "GeoCircle",
         geoMidpoint: { "@type": "GeoCoordinates", latitude: 53.3369, longitude: 15.0386 },
-        geoRadius: "100000", // Promień 100 km
+        geoRadius: "100000", // 100 km radius
       },
       { "@type": "City", name: "Stargard" },
       { "@type": "City", name: "Szczecin" },
@@ -109,11 +111,14 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="pl" className="scroll-smooth">
       <body className={inter.className}>
-        <Navbar />
-        <GeoProvider>
-          {children}
-          <Footer />
-        </GeoProvider>
+        <AudienceProvider>
+          <Navbar />
+          <MobileBottomNav />
+          <GeoProvider>
+            {children}
+            <Footer />
+          </GeoProvider>
+        </AudienceProvider>
 
         {/* Google Analytics Script */}
         <Script src={GA_SCRIPT_SRC} strategy="afterInteractive" />

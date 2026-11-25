@@ -2,6 +2,7 @@
 "use client";
 
 import React, { useState } from "react";
+import Link from "next/link";
 import { useGeo } from "@/app/context/GeoContext";
 
 export default function Footer() {
@@ -9,7 +10,7 @@ export default function Footer() {
   const { userCity, isWithinRange } = useGeo();
 
   return (
-    <footer id="kontakt" className="bg-[#111111] border-t-2 border-[#333333] py-12 px-6">
+    <footer id="kontakt" className="bg-[#111111] border-t-2 border-[#333333] px-6 pt-12 pb-24 lg:pb-12">
       <div className="max-w-6xl mx-auto grid md:grid-cols-3 gap-12 text-gray-400">
         {/* Column 1: CONTACT INFO */}
         <div className="flex flex-col items-center md:items-start text-center md:text-left">
@@ -36,14 +37,14 @@ export default function Footer() {
           <h4 className="text-[#ffb800] font-bold mb-4 uppercase tracking-wider">Szybki Kontakt</h4>
           <ul className="space-y-2 w-full flex flex-col items-center md:items-start">
             <li>
-              <a href="#uslugi" className="hover:text-white transition-colors">
-                Zakres usług
-              </a>
+              <Link href="/#oferta" className="hover:text-white transition-colors">
+                Zakres usług i ścieżki
+              </Link>
             </li>
             <li>
-              <a href="#wysylka" className="hover:text-white transition-colors">
+              <Link href="/#wysylka" className="hover:text-white transition-colors">
                 Naprawa wysyłkowa (Paczkomat)
-              </a>
+              </Link>
             </li>
             <li>
               <a
@@ -65,7 +66,7 @@ export default function Footer() {
                 Facebook
               </a>
               <a
-                href="https://www.tiktok.com/@technikserwisupmdev"
+                href="https://www.tiktok.com/@technikserwisupm"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="hover:text-[#ffb800] transition-colors font-medium"

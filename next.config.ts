@@ -1,12 +1,12 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  // Automatyczne usuwanie console.log() w produkcyjnej wersji aplikacji
+  // Automatically remove console.log() in production
   compiler: {
     removeConsole: process.env.NODE_ENV === "production",
   },
 
-  // Optymalizacja importów dużych bibliotek ikon i animacji
+  // Optimize imports from large icon and animation libraries
   experimental: {
     optimizePackageImports: ["lucide-react", "framer-motion"],
   },

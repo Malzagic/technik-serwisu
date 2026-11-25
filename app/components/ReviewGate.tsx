@@ -4,6 +4,7 @@
 import React, { useState } from "react";
 import { Star, Mail, X, ThumbsUp, MessageSquareWarning } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import ModalPortal from "./ModalPortal";
 
 export default function ReviewGate({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) {
   const [step, setStep] = useState<"choice" | "positive" | "negative">("choice");
@@ -15,22 +16,25 @@ export default function ReviewGate({ isOpen, onClose }: { isOpen: boolean; onClo
   };
 
   return (
-    <AnimatePresence>
-      {isOpen && (
-        <>
+    <ModalPortal>
+      <AnimatePresence>
+        {isOpen && (
+          <>
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={handleClose}
-            className="fixed inset-0 bg-black/80 z-[60] backdrop-blur-sm"
+            className="fixed inset-0 bg-black/75 z-[60] backdrop-blur-md"
           />
           <motion.div
-            initial={{ opacity: 0, scale: 0.95, y: "-48%" }}
-            animate={{ opacity: 1, scale: 1, y: "-50%" }}
-            exit={{ opacity: 0, scale: 0.95, y: "-48%" }}
-            className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-[#202020] p-6 sm:p-8 w-[95%] max-w-sm z-[70] border-t-4 border-[#ffb800] shadow-2xl text-center"
+            initial={{ opacity: 0, scale: 0.95, x: "-50%", y: "-42%" }}
+            animate={{ opacity: 1, scale: 1, x: "-50%", y: "-50%" }}
+            exit={{ opacity: 0, scale: 0.95, x: "-50%", y: "-42%" }}
+            transition={{ type: "spring", stiffness: 360, damping: 30 }}
+            className="fixed top-1/2 left-1/2 w-[95%] max-w-sm z-[70] p-6 sm:p-8 bg-[#11151a]/90 border border-white/10 rounded-3xl backdrop-blur-2xl shadow-[0_25px_60px_rgba(0,0,0,0.75)] text-center"
           >
+            <div className="pointer-events-none absolute -top-px left-12 right-12 h-px bg-gradient-to-r from-transparent via-white/35 to-transparent" />
             <button
               onClick={handleClose}
               className="absolute top-4 right-4 text-gray-400 hover:text-white transition-colors"
@@ -98,8 +102,9 @@ export default function ReviewGate({ isOpen, onClose }: { isOpen: boolean; onClo
               </>
             )}
           </motion.div>
-        </>
-      )}
-    </AnimatePresence>
+          </>
+        )}
+      </AnimatePresence>
+    </ModalPortal>
   );
 }

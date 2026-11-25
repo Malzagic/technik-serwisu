@@ -4,29 +4,32 @@
 import React from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, CheckCircle, Package } from "lucide-react";
+import ModalPortal from "./ModalPortal";
 
 export default function ShippingModal({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) {
   return (
-    <AnimatePresence>
-      {isOpen && (
-        <div className="fixed inset-0 z-[70] flex items-center justify-center p-4">
-          {/* Backdrop / Tło przysłaniające */}
+    <ModalPortal>
+      <AnimatePresence>
+        {isOpen && (
+          <div className="fixed inset-0 z-[70] flex items-center justify-center p-4">
+          {/* Backdrop */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={onClose}
-            className="fixed inset-0 bg-black/80 backdrop-blur-sm"
+            className="fixed inset-0 bg-black/75 backdrop-blur-md"
           />
 
-          {/* Modal Container - Idealnie wyśrodkowany */}
+          {/* Modal container - perfectly centered */}
           <motion.div
             initial={{ opacity: 0, scale: 0.95, y: 10 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: 10 }}
-            transition={{ duration: 0.2 }}
-            className="relative bg-[#202020] p-6 sm:p-8 w-full max-w-lg z-10 border-t-4 border-[#ffb800] shadow-2xl overflow-y-auto max-h-[88vh] rounded-sm"
+            transition={{ type: "spring", stiffness: 360, damping: 30 }}
+            className="relative w-full max-w-lg z-10 p-6 sm:p-8 bg-[#11151a]/90 border border-white/10 shadow-[0_25px_60px_rgba(0,0,0,0.75)] overflow-y-auto max-h-[88vh] rounded-3xl backdrop-blur-2xl"
           >
+            <div className="pointer-events-none absolute -top-px left-12 right-12 h-px bg-gradient-to-r from-transparent via-white/35 to-transparent" />
             <button
               onClick={onClose}
               className="absolute top-4 right-4 text-gray-400 hover:text-white transition-colors"
@@ -95,8 +98,9 @@ export default function ShippingModal({ isOpen, onClose }: { isOpen: boolean; on
               </p>
             </div>
           </motion.div>
-        </div>
-      )}
-    </AnimatePresence>
+          </div>
+        )}
+      </AnimatePresence>
+    </ModalPortal>
   );
 }
