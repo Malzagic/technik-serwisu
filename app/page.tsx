@@ -32,6 +32,12 @@ export default function Home() {
       rating: 5,
       type: "Klient Indywidualny",
     },
+    {
+      name: "Adam Czerwiński",
+      opinion: "Super wykonana praca i szybko. Polecam",
+      rating: 5,
+      type: "Klient Indywidualny",
+    },
   ];
 
   return (
@@ -239,9 +245,9 @@ export default function Home() {
               </p>
 
               <blockquote className="border-l-2 border-amber-400 pl-4 italic text-zinc-300">
-                „Wspieram rozwój firm poprzez bezpieczne i niezawodne środowisko IT, a klientom indywidualnym
-                dostarczam pewny, wygodny serwis — z dojazdem pod drzwi w promieniu 100 km lub wygodnie przez
-                Paczkomat z całej Polski.”
+                „Wspieram rozwój firm poprzez bezpieczne i niezawodne środowisko IT, a klientom indywidualnym dostarczam
+                pewny, wygodny serwis — z dojazdem pod drzwi w promieniu 100 km lub wygodnie przez Paczkomat z całej
+                Polski.”
               </blockquote>
             </div>
           </div>
